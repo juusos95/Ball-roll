@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject pointsParent;
     [SerializeField] private TextMeshProUGUI countText;
     [SerializeField] private TextMeshProUGUI endText;
+    [SerializeField] private GameObject nextButton;
+    [SerializeField] private GameObject backButton;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,7 +31,6 @@ public class PlayerController : MonoBehaviour
         maxCount = pointsParent.transform.childCount;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         Vector3 movement = new Vector3(movementX, 0.0f, movementY);
@@ -49,6 +50,8 @@ public class PlayerController : MonoBehaviour
             {
                 Destroy(GameObject.FindGameObjectWithTag("Enemy"));
                 endText.gameObject.SetActive(true);
+                nextButton.SetActive(true);
+                backButton.SetActive(true);
             }
         }
     }
@@ -61,20 +64,22 @@ public class PlayerController : MonoBehaviour
 
             endText.gameObject.SetActive(true);
             endText.text = "YOU DIED";
+            backButton.SetActive(true);
+            backButton.transform.position = nextButton.transform.position;
         }
     }
 
-    void OnMove (InputValue MovementValue)
+    public void Move (InputAction.CallbackContext MovementValue)
     {
-        Vector2 movementVector = MovementValue.Get<Vector2>();
+        Vector2 movementVector = MovementValue.ReadValue<Vector2>();
 
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
 
-    void OnJump (InputValue JumpValue)
+    public void Jump (InputAction.CallbackContext JumpValue)
     {
-        if (grounded)
+        if (grounded && JumpValue.performed)
         {
             rb.AddForce(0, jumpForce, 0);
         }
