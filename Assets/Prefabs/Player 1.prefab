@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 2106343867867814493}
   - component: {fileID: 3416841722485540976}
   - component: {fileID: 5073106129413289478}
-  - component: {fileID: 1760533628841036020}
+  - component: {fileID: 4928964082005136910}
   m_Layer: 6
   m_Name: Player 1
   m_TagString: Untagged
@@ -378,7 +378,7 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1760533628841036020}
+      - m_Target: {fileID: 4928964082005136910}
         m_TargetAssemblyTypeName: Grapple, Assembly-CSharp
         m_MethodName: Shoot
         m_Mode: 0
@@ -416,9 +416,11 @@ MonoBehaviour:
   pointsParent: {fileID: 0}
   countText: {fileID: 0}
   endText: {fileID: 0}
+  thankYouText: {fileID: 0}
   nextButton: {fileID: 0}
   backButton: {fileID: 0}
---- !u!114 &1760533628841036020
+  TryAgainButton: {fileID: 0}
+--- !u!114 &4928964082005136910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

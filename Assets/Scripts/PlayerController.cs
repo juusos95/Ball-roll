@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,8 +19,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject pointsParent;
     [SerializeField] private TextMeshProUGUI countText;
     [SerializeField] private TextMeshProUGUI endText;
+    [SerializeField] private GameObject thankYouText;
     [SerializeField] private GameObject nextButton;
     [SerializeField] private GameObject backButton;
+    [SerializeField] private GameObject TryAgainButton;
+
+    int currentScene;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,6 +34,8 @@ public class PlayerController : MonoBehaviour
         count = 0;
 
         maxCount = pointsParent.transform.childCount;
+
+        int.TryParse(SceneManager.GetActiveScene().name, out currentScene);
     }
 
     void FixedUpdate()
@@ -45,8 +52,15 @@ public class PlayerController : MonoBehaviour
 
             count++;
             SetCountText();
-            
-            if (count == maxCount)
+
+            if (count == maxCount && SceneManager.sceneCountInBuildSettings == currentScene + 1)
+            {
+                Destroy(GameObject.FindGameObjectWithTag("Enemy"));
+                endText.gameObject.SetActive(true);
+                backButton.SetActive(true);
+                thankYouText.SetActive(true);
+            }
+            else if (count == maxCount)
             {
                 Destroy(GameObject.FindGameObjectWithTag("Enemy"));
                 endText.gameObject.SetActive(true);
@@ -65,7 +79,7 @@ public class PlayerController : MonoBehaviour
             endText.gameObject.SetActive(true);
             endText.text = "YOU DIED";
             backButton.SetActive(true);
-            backButton.transform.position = nextButton.transform.position;
+            TryAgainButton.SetActive(true);
         }
     }
 

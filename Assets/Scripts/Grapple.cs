@@ -19,7 +19,7 @@ public class Grapple : MonoBehaviour
 
     [SerializeField] GameObject jointPrefab;
     GameObject jointObject;
-    SpringJoint joint;
+    ConfigurableJoint joint;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,6 +39,8 @@ public class Grapple : MonoBehaviour
         mousePos = Mouse.current.position.ReadValue();
 
         Aim();
+
+
     }
 
     void Aim()
@@ -67,11 +69,12 @@ public class Grapple : MonoBehaviour
                 line.gameObject.SetActive(true);
                 line.SetPosition(1, hit.point);
 
-                jointObject = Instantiate(jointPrefab, hit.point, Quaternion.identity);
-                joint = jointObject.GetComponent<SpringJoint>();
+                point = hit.point;
 
+                jointObject = Instantiate(jointPrefab, hit.point, Quaternion.identity);
+                joint = jointObject.GetComponent<ConfigurableJoint>();
+                
                 joint.connectedBody = rb;
-                joint.anchor = hit.point;
             }
         }
         else if (context.canceled)

@@ -18,4 +18,9 @@ public class NextLevel : MonoBehaviour
     {
         SceneManager.LoadScene(nextLevel.ToString());
     }
+
+    public void OnTryAgain()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
